@@ -160,7 +160,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         //highlight piece when AI picks a piece for human
         if(state.pickedPiece != null && state.turn == this.playerNum)
         {
-            pieces[state.pickedPiece.pieceNum].setColorFilter(Color.argb(80, 0, 0, 0)); // Dark Tint
+            pieces[state.pickedPiece.pieceNum].setColorFilter(Color.argb(135, 0, 255, 0)); //Tint
             userMessage.setText("PLAY THE SELECTED PIECE");
             boardSurfaceView.invalidate();
             bankSurfaceView.invalidate();
@@ -316,7 +316,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
                     if(state.pickedPiece == null && state.bankPieces[i] != null)
                     {
                         ImageView myImage = (ImageView)v;
-                        myImage.setColorFilter(Color.argb(80, 0, 0, 0)); // Dark Tint
+                        myImage.setColorFilter(Color.argb(135, 0, 255, 0)); //Tint
                         userMessage.setText("Waiting for Opponent...");
                         boardSurfaceView.invalidate();
                         bankSurfaceView.invalidate();
