@@ -15,9 +15,6 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by moran19 on 3/23/2017.
- */
 public class QuartoStateTest {
 /*
     @Test

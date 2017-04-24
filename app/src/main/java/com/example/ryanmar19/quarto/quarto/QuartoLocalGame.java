@@ -53,11 +53,24 @@ public class QuartoLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
-        if(state.gameOver == true){
-            return this.playerNames[state.turn] + " has won!";
+        if(state.boardFull == true){
+            QuartoClaimVictoryAction winAction = new QuartoClaimVictoryAction(this.players[state.turn]);
+            state.ClaimVictoryAction(winAction);
+            this.sendUpdatedStateTo(players[0]);
+            this.sendUpdatedStateTo(players[1]);
+            if(state.gameOver == true){
+                return this.playerNames[state.turn] + " has won!";
+            }
+            else{
+                this.sendUpdatedStateTo(players[0]);
+                this.sendUpdatedStateTo(players[1]);
+                return "Tie!";
+            }
         }
-        else if(state.boardFull == true){
-            return "Tie!";
+        else if(state.gameOver == true){
+            this.sendUpdatedStateTo(players[0]);
+            this.sendUpdatedStateTo(players[1]);
+            return this.playerNames[state.turn] + " has won!";
         }
         return null;
     }

@@ -51,8 +51,6 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer {
         //if pieckedPiece is not null, pick a random piece until we find an empty spot on board
         if (myState.pickedPiece != null) {
             sleep(500);
-            boolean currentQuarto = false;
-            if(myState.checkIfQuarto() == true) currentQuarto = true;
             // pick x and y positions at random (0-3)
             boolean playedPiece = false;
             do {
@@ -61,8 +59,9 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer {
                 if (myState.boardPieces[xVal][yVal] == null) {
                     QuartoPlayPieceAction action = new QuartoPlayPieceAction(this, xVal, yVal, myState.pickedPiece.pieceNum);
                     game.sendAction(action);
+                    myState.boardPieces[xVal][yVal] = myState.pickedPiece;
                     //if there is a new quarto, 50% chance we will "call" it
-                    if(myState.checkIfQuarto() == true && currentQuarto == false){
+                    if(myState.numQuarto < myState.getNumQuarto()){
                         int random = (int) (10 * Math.random());
                         if(random < 5){
                             QuartoClaimVictoryAction win = new QuartoClaimVictoryAction(this);

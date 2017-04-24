@@ -30,6 +30,7 @@ public class QuartoState extends GameState implements Serializable {
     boolean boardFull; //Whether or not the game board is full
     Piece pickedPiece;
     int numQuarto; //number of Quartos on board
+    int previousNumQuarto; //tracks the number of Quartos from last turn
 
     //Basic Constructor
     public QuartoState() {
@@ -202,6 +203,7 @@ public class QuartoState extends GameState implements Serializable {
         pickedPiece = null;
         boardFull = false;
         numQuarto = 0;
+        previousNumQuarto = 0;
 
     }
 
@@ -228,9 +230,9 @@ public class QuartoState extends GameState implements Serializable {
         gameOver = original.gameOver;
         boardFull = original.boardFull;
         numQuarto = original.numQuarto;
+        previousNumQuarto = original.previousNumQuarto;
 
     }
-
 
     //ACTION METHODS
     //method for PickPieceAction: makes the chosen piece the game state's "pickedPiece" variable
@@ -239,6 +241,7 @@ public class QuartoState extends GameState implements Serializable {
             if (this.pickedPiece == null) {
                 this.turn = this.changeTurn();
                 this.pickedPiece = pieceLib[action.pieceNum];
+                previousNumQuarto = numQuarto;
                 numQuarto = this.getNumQuarto();
                 return true;
             }
@@ -265,10 +268,6 @@ public class QuartoState extends GameState implements Serializable {
                 }
                 if (boardNum == 16) {
                     boardFull = true;
-                    if(this.getNumQuarto() > numQuarto){
-                        gameOver = true;
-                    }
-
                 }
 
                 return true;
@@ -281,18 +280,17 @@ public class QuartoState extends GameState implements Serializable {
     public boolean ClaimVictoryAction(QuartoClaimVictoryAction action) {
         if (action instanceof QuartoClaimVictoryAction) {
 
-            //if the user just played a piece and got a quarto - they win
-            if (pickedPiece == null) {
-                if (this.getNumQuarto() > numQuarto) {
-                    gameOver = true;
-                    return true;
+            if (this.getNumQuarto() > 0) {
+                //if the user just played a piece and got a quarto - they win
+                if (pickedPiece == null) {
+                    if (this.getNumQuarto() > numQuarto) {
+                        gameOver = true;
+                        return true;
+                    }
                 }
-            }
-            //if user sees opponents missed quarto - they win
-            //ISSUE: when you have selected piece (your turn to play) but see old quarto
-            if(numQuarto > 0){
+                //if user sees opponents missed quarto - they win
                 if (pickedPiece != null) {
-                    if (this.getNumQuarto() > numQuarto - 1) {
+                    if (numQuarto > previousNumQuarto) {
                         gameOver = true;
                         return true;
                     }
