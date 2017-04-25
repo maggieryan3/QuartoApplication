@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * class QuartoComputerPlayer2
- *
+ * <p>
  * is the computer player that is our smart AI. Functions as an opponent to
  * the human player, or to another computer player.
  *
@@ -32,6 +32,12 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
         super(name);
     }
 
+    /**
+     * Callback-method implemented in the subclass whenever updated
+     * state is received.
+     *
+     * @param info the object representing the information from the game
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
         // if it's not a QuartoState message, ignore it; otherwise
@@ -99,7 +105,7 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
                             }
                         }
                     }
-                    if(goodPiece == true){
+                    if (goodPiece == true) {
                         QuartoPickPieceAction action = new QuartoPickPieceAction(this, myState.bankPieces[i].pieceNum);
                         game.sendAction(action);
                         return;

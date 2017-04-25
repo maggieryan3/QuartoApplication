@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * class QuartoPlayPieceAction
- *
+ * <p>
  * is the action class that defines the action a player takes when
  * they play a piece that was chosen for them on the board.
  *
@@ -30,11 +30,10 @@ public class QuartoPlayPieceAction extends GameAction {
     /**
      * constructor for QuartoPlayPieceAction
      *
-     * @param player the player who created the action
-     * @param initX the board x-coordinate
-     * @param initY the board y-coordinate
+     * @param player       the player who created the action
+     * @param initX        the board x-coordinate
+     * @param initY        the board y-coordinate
      * @param initPieceNum the pieceNum of the piece being played
-     *
      */
     public QuartoPlayPieceAction(GamePlayer player, int initX, int initY, int initPieceNum) {
         super(player);

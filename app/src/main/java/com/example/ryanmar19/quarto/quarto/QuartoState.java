@@ -32,7 +32,7 @@ public class QuartoState extends GameState implements Serializable {
     int numQuarto; //number of Quartos on board
     int previousNumQuarto; //tracks the number of Quartos from last turn
 
-    //Basic Constructor
+    //Basic constructor
     public QuartoState() {
         //piece initialize
         //Blue Large Hollow Square
@@ -207,7 +207,7 @@ public class QuartoState extends GameState implements Serializable {
 
     }
 
-    //Deep copies a QuartoState
+    //Deep copy constructor
     public QuartoState(QuartoState original) {
 
         //Board
@@ -234,8 +234,12 @@ public class QuartoState extends GameState implements Serializable {
 
     }
 
-    //ACTION METHODS
-    //method for PickPieceAction: makes the chosen piece the game state's "pickedPiece" variable
+    /**
+     * Handles a QuartoPickPieceAction
+     *
+     * @param action an instance of a QuartoPickPieceAction
+     * @return true if the action is an instance of a QuartoPickPieceAction and false otherwise
+     */
     public boolean PickPieceAction(QuartoPickPieceAction action) {
         if (action instanceof QuartoPickPieceAction) {
             if (this.pickedPiece == null) {
@@ -249,7 +253,12 @@ public class QuartoState extends GameState implements Serializable {
         return false;
     }
 
-    //method for PlayPieceAction: adds played piece to boardPieces array and removes it from boardPieces array
+    /**
+     * Handles a QuartoPlayPieceAction
+     *
+     * @param action an instance of a QuartoPlayPieceAction
+     * @return true if the action is an instance of a QuartoPlayPieceAction and false otherwise
+     */
     public boolean PlayPieceAction(QuartoPlayPieceAction action) {
         if (action instanceof QuartoPlayPieceAction) {
             if (pickedPiece != null) {
@@ -276,7 +285,13 @@ public class QuartoState extends GameState implements Serializable {
         return false;
     }
 
-    //method for ClaimVictoryAction
+    /**
+     * Handles a QuartoClaimVictoryAction
+     *
+     * @param action an instance of a QuartoClaimVictoryAction
+     * @return true if the action is an instance of a QuartoClaimVictoryAction and false otherwise
+     */
+
     public boolean ClaimVictoryAction(QuartoClaimVictoryAction action) {
         if (action instanceof QuartoClaimVictoryAction) {
 
@@ -300,10 +315,11 @@ public class QuartoState extends GameState implements Serializable {
         return false;
     }
 
-    //OTHER METHODS
-
     /**
-     * Method to change game state's turn
+     * Changes whose turn it is. 2 players maximum so if turn is 0 change
+     * it to 1, if turn is 1 change it to 0.
+     *
+     * @return whose turn it is or -1 if turn is not 0 or 1
      */
     public int changeTurn() {
         if (turn == 0) {
@@ -318,7 +334,11 @@ public class QuartoState extends GameState implements Serializable {
     }
 
     /**
-     * Method to check if there is a quarto
+     * Checks for a quarto anywhere on the board by looping through all
+     * possible winning paths and comparing shape, size, color and solidity
+     * of pieces in the given path.
+     *
+     * @return true if there is a quarto and false otherwise
      */
     public Boolean checkIfQuarto() {
         //If any of pieces don't match then this value will be set to false.
@@ -468,6 +488,11 @@ public class QuartoState extends GameState implements Serializable {
         return false;
     }
 
+    /**
+     * Counts the number of quartos on the board.
+     *
+     * @return the number of quartos on the board
+     */
     public int getNumQuarto() {
         //If any of pieces don't match then this value will be set to false.
         boolean colorEqual = true;

@@ -20,7 +20,7 @@ import com.example.ryanmar19.quarto.game.infoMsg.NotYourTurnInfo;
 
 /**
  * class QuartoHumanPlayer
- *
+ * <p>
  * is the human player which interacts with the user interface to play the game.
  *
  * @author Maggie Ryan
@@ -30,7 +30,7 @@ import com.example.ryanmar19.quarto.game.infoMsg.NotYourTurnInfo;
  */
 
 public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickListener {
-	/* instance variables */
+    /* instance variables */
     // the most recent game state, as given to us by the QuartoLocalGame
     private QuartoState state;
 
@@ -91,8 +91,8 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 
     /**
      * constructor
-     * @param name
-     * 		the player's name
+     *
+     * @param name the player's name
      */
     public QuartoHumanPlayer(String name) {
         super(name);
@@ -101,16 +101,16 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
     /**
      * Returns the GUI's top view object
      *
-     * @return
-     * 		the top object in the GUI's view heirarchy
+     * @return the top object in the GUI's view heirarchy
      */
-    public View getTopView() {return null;}
+    public View getTopView() {
+        return null;
+    }
 
     /**
      * callback method when we get a message (e.g., from the game)
      *
-     * @param info
-     * 		the message
+     * @param info the message
      */
     @Override
     public void receiveInfo(GameInfo info) {
@@ -121,10 +121,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         if (!(info instanceof QuartoState)) return;
 
         // update our state; then update the display
-        this.state = (QuartoState)info;
+        this.state = (QuartoState) info;
 
         //if game over update textView
-        if(state.gameOver == true || state.boardFull == true){
+        if (state.gameOver == true || state.boardFull == true) {
             userMessage.setText("GAME OVER!");
             bankSurfaceView.invalidate();
         }
@@ -139,19 +139,17 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
          Solution: I used the example code from this post.
          */
         //update board when AI plays a piece
-        for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
-                if(state.boardPieces[i][j] != null)
-                {
-                    int ID = myActivity.getResources().getIdentifier(state.boardPieces[i][j].myImageId,"mipmap", myActivity.getPackageName());
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (state.boardPieces[i][j] != null) {
+                    int ID = myActivity.getResources().getIdentifier(state.boardPieces[i][j].myImageId, "mipmap", myActivity.getPackageName());
                     boardImages[i][j].setImageResource(ID);
                 }
             }
         }
         //update bank when AI places a piece
-        for(int i = 0; i < 16; i++){
-            if(state.bankPieces[i] == null)
-            {
+        for (int i = 0; i < 16; i++) {
+            if (state.bankPieces[i] == null) {
                 pieces[i].setImageBitmap(null);
                 boardSurfaceView.invalidate();
                 bankSurfaceView.invalidate();
@@ -159,8 +157,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         }
 
         //highlight piece when AI picks a piece for human
-        if(state.pickedPiece != null && state.turn == this.playerNum)
-        {
+        if (state.pickedPiece != null && state.turn == this.playerNum) {
             pieces[state.pickedPiece.pieceNum].setColorFilter(Color.argb(100, 0, 0, 0)); //Tint
             userMessage.setText("PLAY THE SELECTED PIECE");
             boardSurfaceView.invalidate();
@@ -168,6 +165,11 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         }
     }
 
+    /**
+     * Implements GUI
+     *
+     * @param activity instance of a GameMainActivity
+     */
     @Override
     public void setAsGui(GameMainActivity activity) {
 
@@ -279,52 +281,55 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         }
     }
 
+    /**
+     * Invoked whenever the player presses a button
+     */
     @Override
     public void onClick(View v) {
-        if(state.turn != this.playerNum) {return;}
+        if (state.turn != this.playerNum) {
+            return;
+        }
 
-            int buttonSelection = v.getId();
-            //QUARTO button
-            if(buttonSelection == R.id.theQuartoButton) {
-                QuartoClaimVictoryAction action = new QuartoClaimVictoryAction(this);
-                game.sendAction(action);
-            }
+        int buttonSelection = v.getId();
+        //QUARTO button
+        if (buttonSelection == R.id.theQuartoButton) {
+            QuartoClaimVictoryAction action = new QuartoClaimVictoryAction(this);
+            game.sendAction(action);
+        }
 
 
-            //board placement
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    int bPiece = boardImages[i][j].getId();
-                    if(buttonSelection == bPiece && state.pickedPiece != null && state.boardPieces[i][j] == null)
-                    {
-                        int ID = myActivity.getResources().getIdentifier(state.pickedPiece.myImageId,"mipmap", myActivity.getPackageName());
-                        boardImages[i][j].setImageResource(ID);
-                        pieces[state.pickedPiece.pieceNum].setImageBitmap(null);
-                        pieces[state.pickedPiece.pieceNum].setBackgroundColor(0x00000000);
-                        userMessage.setText("PICK A PIECE FOR YOUR OPPONENT");
-                        boardSurfaceView.invalidate();
-                        bankSurfaceView.invalidate();
-                        QuartoPlayPieceAction action = new QuartoPlayPieceAction(this,i,j,state.pickedPiece.pieceNum);
-                        game.sendAction(action);
-                    }
-                }
-            }
-
-            //image selections
-            for(int i=0; i<16; i++) {
-                int piece = pieces[i].getId();
-                if (buttonSelection == piece) {
-                    if(state.pickedPiece == null && state.bankPieces[i] != null)
-                    {
-                        ImageView myImage = (ImageView)v;
-                        myImage.setColorFilter(Color.argb(100, 0, 0, 0)); //Tint
-                        userMessage.setText("Waiting for Opponent...");
-                        boardSurfaceView.invalidate();
-                        bankSurfaceView.invalidate();
-                        QuartoPickPieceAction action = new QuartoPickPieceAction(this,i);
-                        game.sendAction(action);
-                    }
+        //board placement
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                int bPiece = boardImages[i][j].getId();
+                if (buttonSelection == bPiece && state.pickedPiece != null && state.boardPieces[i][j] == null) {
+                    int ID = myActivity.getResources().getIdentifier(state.pickedPiece.myImageId, "mipmap", myActivity.getPackageName());
+                    boardImages[i][j].setImageResource(ID);
+                    pieces[state.pickedPiece.pieceNum].setImageBitmap(null);
+                    pieces[state.pickedPiece.pieceNum].setBackgroundColor(0x00000000);
+                    userMessage.setText("PICK A PIECE FOR YOUR OPPONENT");
+                    boardSurfaceView.invalidate();
+                    bankSurfaceView.invalidate();
+                    QuartoPlayPieceAction action = new QuartoPlayPieceAction(this, i, j, state.pickedPiece.pieceNum);
+                    game.sendAction(action);
                 }
             }
         }
+
+        //image selections
+        for (int i = 0; i < 16; i++) {
+            int piece = pieces[i].getId();
+            if (buttonSelection == piece) {
+                if (state.pickedPiece == null && state.bankPieces[i] != null) {
+                    ImageView myImage = (ImageView) v;
+                    myImage.setColorFilter(Color.argb(100, 0, 0, 0)); //Tint
+                    userMessage.setText("Waiting for Opponent...");
+                    boardSurfaceView.invalidate();
+                    bankSurfaceView.invalidate();
+                    QuartoPickPieceAction action = new QuartoPickPieceAction(this, i);
+                    game.sendAction(action);
+                }
+            }
+        }
+    }
 }

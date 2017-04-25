@@ -5,7 +5,7 @@ import com.example.ryanmar19.quarto.game.actionMsg.GameAction;
 
 /**
  * class QuartoClaimVictoryAction
- *
+ * <p>
  * is an action class which is used to create an object which defines the action
  * where the player can win the game.
  *
