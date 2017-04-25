@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * class QuartoComputerPlayer1
- *
+ * <p>
  * is the computer player that is our dumb AI. Functions as an opponent to
  * the human player, or to another computer player.
  *
@@ -32,6 +32,12 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer {
         super(name);
     }
 
+    /**
+     * Callback-method implemented in the subclass whenever updated
+     * state is received.
+     *
+     * @param info the object representing the information from the game
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
         /**
@@ -61,9 +67,9 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer {
                     game.sendAction(action);
                     myState.boardPieces[xVal][yVal] = myState.pickedPiece;
                     //if there is a new quarto, 50% chance we will "call" it
-                    if(myState.numQuarto < myState.getNumQuarto()){
+                    if (myState.numQuarto < myState.getNumQuarto()) {
                         int random = (int) (10 * Math.random());
-                        if(random < 5){
+                        if (random < 5) {
                             QuartoClaimVictoryAction win = new QuartoClaimVictoryAction(this);
                             game.sendAction(win);
                             return;
@@ -72,8 +78,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer {
                     return;
                 }
             } while (playedPiece == false);
-        }
-        else if (myState.pickedPiece == null) {
+        } else if (myState.pickedPiece == null) {
             sleep(1000);
             //pick piece
             boolean pickedPiece = false;
@@ -84,7 +89,7 @@ public class QuartoComputerPlayer1 extends GameComputerPlayer {
                     game.sendAction(action);
                     return;
                 }
-            }while (pickedPiece == false);
+            } while (pickedPiece == false);
         }
     }
 }

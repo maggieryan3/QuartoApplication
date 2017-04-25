@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * class QuartoComputerPlayer2
- *
+ * <p>
  * is the computer player that is our smart AI. Functions as an opponent to
  * the human player, or to another computer player.
  *
@@ -32,6 +32,12 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
         super(name);
     }
 
+    /**
+     * Callback-method implemented in the subclass whenever updated
+     * state is received.
+     *
+     * @param info the object representing the information from the game
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
         // if it's not a QuartoState message, ignore it; otherwise
@@ -42,11 +48,17 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
         // if it's not our move, ignore it
         if (myState.turn != this.playerNum) return;
 
-        // If pieckedPiece is not null, find where to play the piece by
-        // placing it on every open space on the board one by one and checking
-        // if that makes a quarto. If it does, play it and call quarto.
-        // If there is no winning path with the selected piece, place it randomly.
+        // If pieckedPiece is not null, check to see if opponent missed a quarto
+        // and send a QuartoClaimVictoryAction if they did. If not, find where to play the
+        // selected piece by placing it on every open space on the board one by one and
+        // checking if it makes a quarto. If it does, play it and call quarto.
+        // If there is no winning path, place it randomly.
         if (myState.pickedPiece != null) {
+            //check if opponent missed quarto
+            QuartoClaimVictoryAction check = new QuartoClaimVictoryAction(this);
+            game.sendAction(check);
+
+            //check for winning paths
             boolean playedPiece = false;
             sleep(1000);
             for (int x = 0; x < 4; x++) {
@@ -66,6 +78,7 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
                     }
                 }
             }
+
             // if there is no winning quarto path, pick x and y positions at random (0-3)
             do {
                 int xVal = (int) (4 * Math.random());
@@ -77,6 +90,7 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
                 }
             } while (playedPiece == false);
         }
+
         // If picked piece is null, loop through pieces in the bank and place it
         // on every open spot on the board to check if it makes a quarto. If not,
         // pick it. If it does, try another piece. If all pieces will result in a quarto,
@@ -99,7 +113,7 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
                             }
                         }
                     }
-                    if(goodPiece == true){
+                    if (goodPiece == true) {
                         QuartoPickPieceAction action = new QuartoPickPieceAction(this, myState.bankPieces[i].pieceNum);
                         game.sendAction(action);
                         return;

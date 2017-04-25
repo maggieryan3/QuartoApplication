@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 /**
  * class QuartoMainActivity
- *
+ * <p>
  * is the main class which functions as the creator of the game.
  *
  * @author Andrew M. Nuxoll
@@ -40,8 +40,7 @@ public class QuartoMainActivity extends GameMainActivity {
      * - minimum of 1 player, maximum of 2
      * - one kind of computer player and one kind of human player available
      *
-     * @return
-     * 		the new configuration object, representing the default configuration
+     * @return the new configuration object, representing the default configuration
      */
     @Override
     public GameConfig createDefaultConfig() {
@@ -53,15 +52,22 @@ public class QuartoMainActivity extends GameMainActivity {
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
                 return new QuartoHumanPlayer(name);
-            }});
+            }
+        });
 
         // a computer player type (player type 1)
         playerTypes.add(new GamePlayerType("Dumb Computer Player") {
-            public GamePlayer createPlayer(String name) {return new QuartoComputerPlayer1(name);}});
+            public GamePlayer createPlayer(String name) {
+                return new QuartoComputerPlayer1(name);
+            }
+        });
 
         // a computer player type (player type 2)
         playerTypes.add(new GamePlayerType("Smart Computer Player") {
-            public GamePlayer createPlayer(String name) {return new QuartoComputerPlayer2(name);}});
+            public GamePlayer createPlayer(String name) {
+                return new QuartoComputerPlayer2(name);
+            }
+        });
 
         // Create a game configuration class for Counter:
         // - player types as given above
@@ -88,8 +94,7 @@ public class QuartoMainActivity extends GameMainActivity {
     /**
      * create a local game
      *
-     * @return
-     * 		the local game, a counter game
+     * @return the local game, a counter game
      */
     @Override
     public LocalGame createLocalGame() {
