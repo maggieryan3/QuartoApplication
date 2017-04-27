@@ -26,5 +26,9 @@
     <string name="easy_button">EASY</string>
     <string name="hard_button">HARD</string>
     <string name="network_player_button">NETWORK PLAYER</string>
+    <string name="title">Q U A R T O</string>
+    <string name="play_button">P L A Y</string>
+    <string name="ip_local">IP CODE: </string>
+    <string name="ip_network">ENTER IP CODE: </string>
 
 </resources>
