@@ -485,6 +485,7 @@ public class GameConfig {
             return;
 
         this.selNames.remove(index);
+        this.selTypes.remove(index);
     }// removePlayer
 
     /**

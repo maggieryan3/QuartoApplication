@@ -655,9 +655,22 @@ public abstract class GameMainActivity extends Activity implements
                 networkButton.setBackgroundResource(R.drawable.palm_texture);
             }
         }
+
         if(button == playButton){
 
+            //If it's a network game then grab the ip address
+            if(!config.isLocal()){
+                this.config.setIpCode(ipEdit.getText().toString());
+            }
+
+            String msg = startGame();
+            if (msg != null) {
+                // we have an error message
+                MessageBox.popUpMessage(msg, this);
+            }
         }
+
+
         /* OLD CODE
         // Add Player Button
         if (button.getId() == R.id.addPlayerButton) {
@@ -706,8 +719,7 @@ public abstract class GameMainActivity extends Activity implements
     }// onClick
 
     private String startGame() {
-        GameConfig finalConfig = scrapeData();
-        return launchGame(finalConfig);
+        return launchGame(this.config);
     }
 
     /**
