@@ -124,6 +124,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/pink"
+            android:paddingLeft="20dp"
+
             android:text="ENTER SERVER'S IP CODE HERE"
             android:textStyle="bold"
             android:textColor="@color/text"

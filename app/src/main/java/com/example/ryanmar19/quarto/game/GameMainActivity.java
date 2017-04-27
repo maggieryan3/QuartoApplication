@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -505,8 +506,8 @@ public abstract class GameMainActivity extends Activity implements
         ipEdit.setText(ipCode+" ("+ipAddress+") ");
 
         //So that the ip edit can connect on and off to the input keyboard.
-        ipEdit.setTag(ipEdit.getTag());
-        ipEdit.setOnKeyListener(null);
+        ipEdit.setTag(ipEdit.getKeyListener());
+        ipEdit.setKeyListener(null);
 
 
     }// initStarterGui
@@ -565,7 +566,11 @@ public abstract class GameMainActivity extends Activity implements
             String ipAddress = IPCoder.getLocalIpAddress();
             ipPrompt.setText(R.string.ip_local);
             ipEdit.setText(ipCode+" ("+ipAddress+") ");
-            ipEdit.setOnKeyListener(null);
+            ipEdit.setKeyListener(null);
+
+            //TODO: Create citation for following cite:
+            // http://stackoverflow.com/questions/3928711/
+            // how-to-make-edittext-not-editable-through-xml-in-android
         }
 
         if(button == networkTab){
@@ -586,7 +591,7 @@ public abstract class GameMainActivity extends Activity implements
             ipPrompt.setText(R.string.ip_network);
             //Clear the ip edit text and set up the keyboard listener for the edit text.
             ipEdit.setText("");
-            ipEdit.setOnKeyListener((View.OnKeyListener) ipEdit.getTag());
+            ipEdit.setKeyListener((KeyListener)ipEdit.getTag());
         }
 
         if(this.config.isLocal()) {
