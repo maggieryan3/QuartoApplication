@@ -111,6 +111,9 @@ public abstract class GameMainActivity extends Activity implements
     Button playButton;
     EditText ipEdit;
 
+    //Holds the current color selection.
+    int whichColor;
+
     public abstract GameConfig createDefaultConfig();
 
     /**
@@ -472,6 +475,9 @@ public abstract class GameMainActivity extends Activity implements
         TextView ipText = (TextView)findViewById(R.id.ipCodeLabel);
         */
 
+        //Sets the initial color to pink.
+        whichColor = 0;
+
         //Connect all the variables with their buttons
         titleButton = (Button)findViewById(R.id.title);
         localTab = (Button)findViewById(R.id.local_button);
@@ -498,6 +504,11 @@ public abstract class GameMainActivity extends Activity implements
         String ipAddress = IPCoder.getLocalIpAddress();
         ipEdit.setText(ipCode+" ("+ipAddress+") ");
 
+        //So that the ip edit can connect on and off to the input keyboard.
+        ipEdit.setTag(ipEdit.getTag());
+        ipEdit.setOnKeyListener(null);
+
+
     }// initStarterGui
 
     @Override
@@ -521,6 +532,103 @@ public abstract class GameMainActivity extends Activity implements
             return;
         }
 
+        //The current color theme.
+        int color = R.color.pink;
+
+        if(button == titleButton){
+            //When it gets to the max available color options then set back to 0.
+            if(whichColor == 3){
+                whichColor = 0;
+            } else {
+                //Rotates between colors.
+                whichColor++;
+            }
+
+            switch(whichColor){
+                case 0: color = R.color.pink;
+                case 1: color = R.color.yellow;
+                case 2: color = R.color.turquoise;
+            }
+        }
+
+        if(button == localTab){
+
+            //Yes, this is a local game.
+            this.config.setLocal(true);
+
+            //Set the colors to reflect the change.
+            localTab.setBackgroundResource(color);
+            networkTab.setBackgroundResource(R.color.black);
+
+            //Set the ip prompt and set up the keyboard listener
+            String ipCode = IPCoder.encodeLocalIP();
+            String ipAddress = IPCoder.getLocalIpAddress();
+            ipPrompt.setText(R.string.ip_local);
+            ipEdit.setText(ipCode+" ("+ipAddress+") ");
+            ipEdit.setOnKeyListener(null);
+        }
+
+        if(button == networkTab){
+
+            //No, this is not a local game.
+            this.config.setLocal(false);
+
+            //Set the colors to reflect the change.
+            networkTab.setBackgroundResource(color);
+            localTab.setBackgroundResource(R.color.black);
+
+            //Switch the backgrounds of the opponent buttons to reflect the change.
+            easyButton.setBackgroundResource(R.drawable.palm_texture_gray);
+            hardButton.setBackgroundResource(R.drawable.palm_texture_gray);
+            networkButton.setBackgroundResource(R.drawable.palm_texture_gray);
+
+            //Switch the prompt to reflect the network tab.
+            ipPrompt.setText(R.string.ip_network);
+            //Clear the ip edit text and set up the keyboard listener for the edit text.
+            ipEdit.setText("");
+            ipEdit.setOnKeyListener((View.OnKeyListener) ipEdit.getTag());
+        }
+
+        if(this.config.isLocal()) {
+            if (button == easyButton) {
+
+                //Remove most recent player and add a new player.
+                this.config.removePlayer(1);
+                this.config.addPlayer("Dumb AI", 1);
+
+                //Switch the backgrounds to reflect the change.
+                easyButton.setBackgroundResource(R.drawable.palm_texture);
+                hardButton.setBackgroundResource(R.drawable.palm_texture_gray);
+                networkButton.setBackgroundResource(R.drawable.palm_texture_gray);
+
+            }
+            if (button == hardButton) {
+
+                //Remove most recent player and add a new player.
+                this.config.removePlayer(1);
+                this.config.addPlayer("Smart AI", 2);
+
+                //Switch the backgrounds to reflect the change.
+                easyButton.setBackgroundResource(R.drawable.palm_texture_gray);
+                hardButton.setBackgroundResource(R.drawable.palm_texture);
+                networkButton.setBackgroundResource(R.drawable.palm_texture_gray);
+            }
+            if (button == networkButton) {
+
+                //Remove most recent player and add a new player.
+                this.config.removePlayer(1);
+                this.config.addPlayer("Network Player", 3);
+
+                //Switch the backgrounds to reflect the change.
+                easyButton.setBackgroundResource(R.drawable.palm_texture_gray);
+                hardButton.setBackgroundResource(R.drawable.palm_texture_gray);
+                networkButton.setBackgroundResource(R.drawable.palm_texture);
+            }
+        }
+        if(button == playButton){
+
+        }
+        /* OLD CODE
         // Add Player Button
         if (button.getId() == R.id.addPlayerButton) {
             addPlayer();
@@ -563,6 +671,7 @@ public abstract class GameMainActivity extends Activity implements
             }
 
         }
+        */
 
     }// onClick
 
