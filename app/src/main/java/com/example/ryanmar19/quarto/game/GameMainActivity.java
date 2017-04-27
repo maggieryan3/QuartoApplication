@@ -114,6 +114,7 @@ public abstract class GameMainActivity extends Activity implements
 
     //Holds the current color selection.
     int whichColor;
+    int color;
 
     public abstract GameConfig createDefaultConfig();
 
@@ -479,6 +480,9 @@ public abstract class GameMainActivity extends Activity implements
         //Sets the initial color to pink.
         whichColor = 0;
 
+        //The current color theme.
+        color = R.color.pink;
+
         //Connect all the variables with their buttons
         titleButton = (Button)findViewById(R.id.title);
         localTab = (Button)findViewById(R.id.local_button);
@@ -528,28 +532,49 @@ public abstract class GameMainActivity extends Activity implements
 
         Log.i("onClick", "just clicked");
 
-        // if the GUI many not have been fully initialized, ignore
+        // If the GUI many not have been fully initialized, ignore
         if (justStarted) {
             return;
         }
 
-        //The current color theme.
-        int color = R.color.pink;
-
+        //Changes the colors of the buttons.
         if(button == titleButton){
+
+            //Trails behind the color of the buttons.
+            int playButtonColor = color;
+
             //When it gets to the max available color options then set back to 0.
-            if(whichColor == 3){
+            if(whichColor == 4){
                 whichColor = 0;
             } else {
                 //Rotates between colors.
                 whichColor++;
             }
 
-            switch(whichColor){
-                case 0: color = R.color.pink;
-                case 1: color = R.color.yellow;
-                case 2: color = R.color.turquoise;
-            }
+            //Identify the color.
+            if(whichColor == 0)
+                color = R.color.red;
+            else if(whichColor == 1)
+                color = R.color.turquoise;
+            else if(whichColor == 2)
+                color = R.color.pink;
+            else if(whichColor == 3)
+                color = R.color.yellow;
+            else if(whichColor == 4)
+                color = R.color.navy;
+
+            //Change the edit text color.
+            ipEdit.setBackgroundResource(color);
+            ipPrompt.setBackgroundResource(color);
+
+            //Change the play button and the title color.
+            playButton.setBackgroundResource(playButtonColor);
+
+            //Change the selected tab.
+            if(config.isLocal())
+                localTab.setBackgroundResource(color);
+            else if (!config.isLocal())
+                networkTab.setBackgroundResource(color);
         }
 
         if(button == localTab){
