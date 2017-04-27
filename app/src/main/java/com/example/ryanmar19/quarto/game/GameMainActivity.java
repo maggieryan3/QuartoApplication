@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -98,6 +99,18 @@ public abstract class GameMainActivity extends Activity implements
      *         configuration for this game. (The default may be subsequently
      *         modified by the user if this is allowed.)
      */
+
+    //Create variables for buttons.
+    Button titleButton;
+    Button localTab;
+    Button networkTab;
+    Button easyButton;
+    Button hardButton;
+    Button networkButton;
+    Button ipPrompt;
+    Button playButton;
+    EditText ipEdit;
+
     public abstract GameConfig createDefaultConfig();
 
     /**
@@ -142,7 +155,7 @@ public abstract class GameMainActivity extends Activity implements
         super.onCreate(savedInstanceState);
 
         // Initialize the layout
-        setContentView(R.layout.game_config_main);
+        setContentView(R.layout.custom_config_main);
 
         // create the default configuration for this game
         this.config = createDefaultConfig();
@@ -438,6 +451,7 @@ public abstract class GameMainActivity extends Activity implements
         // Set the title text using the game's name
         this.setTitle(config.getGameName() + " Configuration");
 
+        /* OLD CODE
         // place the pages in the tabbed dialog
         initTabs();
 
@@ -455,11 +469,34 @@ public abstract class GameMainActivity extends Activity implements
         v = findViewById(R.id.playGameButton);
         v.setOnClickListener(this);
 
+        TextView ipText = (TextView)findViewById(R.id.ipCodeLabel);
+        */
 
+        //Connect all the variables with their buttons
+        titleButton = (Button)findViewById(R.id.title);
+        localTab = (Button)findViewById(R.id.local_button);
+        networkTab = (Button)findViewById(R.id.network_button);
+        easyButton = (Button)findViewById(R.id.easy_button);
+        hardButton = (Button)findViewById(R.id.hard_button);
+        networkButton = (Button)findViewById(R.id.network_player_button);
+        ipPrompt = (Button)findViewById(R.id.ip_button);
+        playButton = (Button)findViewById(R.id.play_button);
+        ipEdit = (EditText)findViewById(R.id.ip_edit);
+
+        //Set myself as the listener for the buttons.
+        titleButton.setOnClickListener(this);
+        localTab.setOnClickListener(this);
+        networkTab.setOnClickListener(this);
+        easyButton.setOnClickListener(this);
+        hardButton.setOnClickListener(this);
+        networkButton.setOnClickListener(this);
+        ipPrompt.setOnClickListener(this);
+        playButton.setOnClickListener(this);
+
+        //Set the ipEdit Text
         String ipCode = IPCoder.encodeLocalIP();
         String ipAddress = IPCoder.getLocalIpAddress();
-        TextView ipText = (TextView)findViewById(R.id.ipCodeLabel);
-        ipText.setText(ipText.getText()+ipCode+" ("+ipAddress+") ");
+        ipEdit.setText(ipCode+" ("+ipAddress+") ");
 
     }// initStarterGui
 
