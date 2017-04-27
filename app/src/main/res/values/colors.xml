@@ -12,4 +12,5 @@
 
     <color name="text">#FFFFFF</color>
 
+    <color name="transparentBlack">#aa000000</color>
 </resources>

@@ -38,10 +38,10 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
     private GameMainActivity myActivity;
 
     //board surface view
-    SurfaceView boardSurfaceView;
+    //SurfaceView boardSurfaceView;
 
     //bankSurfaceView
-    SurfaceView bankSurfaceView;
+    //SurfaceView bankSurfaceView;
 
     //array of bank piece images
     ImageView pieces[] = new ImageView[16];
@@ -126,7 +126,7 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         //if game over update textView
         if (state.gameOver == true || state.boardFull == true) {
             userMessage.setText("GAME OVER!");
-            bankSurfaceView.invalidate();
+            //bankSurfaceView.invalidate();
         }
 
         /**
@@ -151,8 +151,8 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         for (int i = 0; i < 16; i++) {
             if (state.bankPieces[i] == null) {
                 pieces[i].setImageBitmap(null);
-                boardSurfaceView.invalidate();
-                bankSurfaceView.invalidate();
+                //boardSurfaceView.invalidate();
+                //bankSurfaceView.invalidate();
             }
         }
 
@@ -160,8 +160,8 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         if (state.pickedPiece != null && state.turn == this.playerNum) {
             pieces[state.pickedPiece.pieceNum].setColorFilter(Color.argb(100, 0, 0, 0)); //Tint
             userMessage.setText("PLAY THE SELECTED PIECE");
-            boardSurfaceView.invalidate();
-            bankSurfaceView.invalidate();
+            //boardSurfaceView.invalidate();
+            //bankSurfaceView.invalidate();
         }
     }
 
@@ -184,8 +184,8 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
         activity.setContentView(R.layout.activity_main);
 
         //board and bank SV
-        boardSurfaceView = (SurfaceView) myActivity.findViewById(R.id.board);
-        bankSurfaceView = (SurfaceView) myActivity.findViewById(R.id.sideboard);
+        //boardSurfaceView = (SurfaceView) myActivity.findViewById(R.id.board);
+        //bankSurfaceView = (SurfaceView) myActivity.findViewById(R.id.sideboard);
 
         //button setup
         myQuartoButton = (Button) myActivity.findViewById(R.id.theQuartoButton);
@@ -308,8 +308,8 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
                     pieces[state.pickedPiece.pieceNum].setImageBitmap(null);
                     pieces[state.pickedPiece.pieceNum].setBackgroundColor(0x00000000);
                     userMessage.setText("PICK A PIECE FOR YOUR OPPONENT");
-                    boardSurfaceView.invalidate();
-                    bankSurfaceView.invalidate();
+                    //boardSurfaceView.invalidate();
+                    //bankSurfaceView.invalidate();
                     QuartoPlayPieceAction action = new QuartoPlayPieceAction(this, i, j, state.pickedPiece.pieceNum);
                     game.sendAction(action);
                 }
@@ -324,8 +324,8 @@ public class QuartoHumanPlayer extends GameHumanPlayer implements View.OnClickLi
                     ImageView myImage = (ImageView) v;
                     myImage.setColorFilter(Color.argb(100, 0, 0, 0)); //Tint
                     userMessage.setText("Waiting for Opponent...");
-                    boardSurfaceView.invalidate();
-                    bankSurfaceView.invalidate();
+                    //boardSurfaceView.invalidate();
+                    //bankSurfaceView.invalidate();
                     QuartoPickPieceAction action = new QuartoPickPieceAction(this, i);
                     game.sendAction(action);
                 }
