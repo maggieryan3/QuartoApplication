@@ -644,5 +644,24 @@ public class QuartoState extends GameState implements Serializable {
         return curNum;
     }
 
+    public Piece getPieceLib(int pieceNumber){
+        return this.pieceLib[pieceNumber];
+    }
+    public Piece getBankPiece(int pieceNumber){
+        return this.bankPieces[pieceNumber];
+    }
+    public Piece getBoardPiece(int initX, int initY){
+        return this.boardPieces[initX][initY];
+    }
+    public void setBoardPiece(int initX, int initY, Piece initPiece){
+        this.boardPieces[initX][initY] = initPiece;
+    }
+    public Piece getPickedPiece(){
+        return this.pickedPiece;
+    }
+    public void setPickedPiece(int pieceNumber){
+        this.pickedPiece = this.pieceLib[pieceNumber];
+    }
+
 }
 

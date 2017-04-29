@@ -25,7 +25,7 @@ public class QuartoStateTest {
         GamePlayer Maggie = new QuartoHumanPlayer("Maggie");
         QuartoPickPieceAction action = new QuartoPickPieceAction(Maggie, 3);
         state.PickPieceAction(action);
-        boolean blah = state.pickedPiece.equals(state.bankPieces[3]);
+        boolean blah = state.getPickedPiece().equals(state.getBankPiece(3));
         assertTrue(blah);
     }
 
@@ -40,7 +40,7 @@ public class QuartoStateTest {
         QuartoPlayPieceAction action2 = new QuartoPlayPieceAction(Lucy, 2, 2, 1);
         state.PlayPieceAction(action2);
 
-        boolean blah = state.boardPieces[2][2].equals(state.pieceLib[1]);
+        boolean blah = state.getBoardPiece(2,2).equals(state.getPieceLib(1));
         assertTrue(blah);
     }
 
@@ -50,10 +50,10 @@ public class QuartoStateTest {
         QuartoState state = new QuartoState();
         GamePlayer Liz = new QuartoHumanPlayer("Liz");
 
-        state.boardPieces[0][0] = state.pieceLib[1];
-        state.boardPieces[1][1] = state.pieceLib[2];
-        state.boardPieces[2][2] = state.pieceLib[3];
-        state.boardPieces[3][3] = state.pieceLib[4];
+        state.setBoardPiece(0,0,state.getPieceLib(1));
+        state.setBoardPiece(1,1,state.getPieceLib(2));
+        state.setBoardPiece(2,2,state.getPieceLib(3));
+        state.setBoardPiece(3,3,state.getPieceLib(4));
 
         QuartoClaimVictoryAction action = new QuartoClaimVictoryAction(Liz);
         state.ClaimVictoryAction(action);

@@ -54,9 +54,13 @@ public class QuartoComputerPlayer2 extends GameComputerPlayer {
         // checking if it makes a quarto. If it does, play it and call quarto.
         // If there is no winning path, place it randomly.
         if (myState.pickedPiece != null) {
-            //check if opponent missed quarto
-            QuartoClaimVictoryAction check = new QuartoClaimVictoryAction(this);
-            game.sendAction(check);
+            //check if opponent missed quarto and call QUARTO if they did
+            if (myState.getNumQuarto() > 0) {
+                if (myState.numQuarto > myState.previousNumQuarto) {
+                    QuartoClaimVictoryAction check = new QuartoClaimVictoryAction(this);
+                    game.sendAction(check);
+                }
+            }
 
             //check for winning paths
             boolean playedPiece = false;

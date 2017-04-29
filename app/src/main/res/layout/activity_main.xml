@@ -24,17 +24,18 @@
             android:layout_height="match_parent"
             android:id="@+id/boardLayout"
             android:layout_margin="15dp"
-            android:background="@drawable/board_turquoise_new">
+            android:background="@drawable/board_turquoise_new"
+            android:weightSum="1">
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="75dp"
                 android:layout_marginBottom="88dp"
-                android:layout_marginTop="88dp">
+                android:layout_marginTop="88dp"
+                android:layout_weight="0.03"
+                android:layout_width="470dp"
+                android:layout_height="470dp">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -49,7 +50,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b03"
                         android:layout_weight="1"
-                        android:layout_margin="18dp"/>
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -57,7 +59,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b13"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_height="match_parent"
@@ -65,7 +68,8 @@
                         android:id="@+id/b23"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_height="match_parent"
@@ -73,7 +77,8 @@
                         android:id="@+id/b33"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                 </LinearLayout>
 
@@ -90,7 +95,9 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b02"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:paddingBottom="10dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -98,7 +105,9 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b12"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:paddingBottom="2dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -106,7 +115,9 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b22"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:paddingBottom="2dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -114,7 +125,9 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b32"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:paddingBottom="2dp"
+                        android:layout_gravity="center" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -130,7 +143,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b01"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -138,7 +152,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b11"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -146,7 +161,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b21"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -154,14 +170,14 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b31"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="108dp"
                     android:id="@+id/boardRow4">
 
                     <ImageView
@@ -170,7 +186,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b00"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -178,7 +195,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b10"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -186,7 +204,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b20"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -194,7 +213,8 @@
                         app:srcCompat="@android:color/transparent"
                         android:id="@+id/b30"
                         android:layout_weight="1"
-                        android:layout_margin="18dp" />
+                        android:layout_margin="25dp"
+                        android:layout_gravity="center" />
                 </LinearLayout>
 
             </LinearLayout>
